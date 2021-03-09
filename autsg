@@ -1,0 +1,23 @@
+#!/bin/bash
+declare -r ROOT=0
+
+if [ $UID -ne $ROOT ]; then
+    printf "\n\tYou must run this script as privileged user\n\n"
+    exit 121
+fi
+
+if [ ! -e $1 ]; then
+    userName=$(cat /etc/passwd | grep -E "$1" | awk -F : '{print $1}')
+
+    if [ ${#userName} -eq 0 ]; then
+        printf "\n\tUsername does not exist\n\n"
+        exit 119
+    elif [ ${#userName} -gt 0 ]; then
+        usermod -aG sudo $userName
+        # printf "\n\tGod-Damn ${userName} this is gooooood to go!!!\n\n"
+        exit 0
+    fi
+else
+    printf "\nMust enter a valid username\n\n"
+    exit 120
+fi
