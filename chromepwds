@@ -47,7 +47,7 @@ while getopts ':?lc:o:' OPTION; do
         l)
             # list all CSV file in the ~/Documents/information directory
             printf "\nThe CSV files live at: %s `echo $SRC`\n"
-            ls -lh $SRC | grep ".*\.csv"
+            ls -halt $SRC | grep ".*\.csv"
             cleanExit
         ;;
         
