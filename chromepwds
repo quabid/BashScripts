@@ -46,8 +46,8 @@ while getopts ':?lc:o:' OPTION; do
     case ${OPTION} in
         l)
             # list all CSV file in the ~/Documents/information directory
-            printf "\nThe CSV files live at: %s\n" "~/Documents/information/chromepasswords/"
-            ls -lh ~/Documents/information/chromepasswords | grep ".*\.csv"
+            printf "\nThe CSV files live at: %s `echo $SRC`\n"
+            ls -lh $SRC | grep ".*\.csv"
             cleanExit
         ;;
         
