@@ -9,7 +9,7 @@ clearVars() {
 cleanUp() {
     msg="all cleaned up!!"
     magenta "\t\t${msg^^}\n\n"
-    
+
 }
 
 gracefulExit() {
@@ -44,71 +44,66 @@ trap "gracefulExit" INT TERM QUIT STOP KILL
 
 while getopts ':?lc:o:' OPTION; do
     case ${OPTION} in
-        l)
-            # list all CSV file in the ~/Documents/information directory
-            printf "\nThe CSV files live at: %s `echo $SRC`\n"
-            ls -halt $SRC | grep ".*\.csv"
-            cleanExit
+    l)
+        # list all CSV files in the $SRC directory
+        printf "\nThe CSV files live at: %s $(echo $SRC)\n"
+        ls -halt $SRC | grep ".*\.csv"
+        cleanExit
         ;;
-        
-        o)
-            # Search term within the latest CSV file
-            # 2nd param = search term
-            if [[ $# -lt 2 ]];
-            then
-                exitProg
-            else
-                TERM=$2
-                # printf '\tSearch Term: %s\n' ${TERM^^}
-                res=$(sed -n '2,$p' $SRC_DEFAULT | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
-                
-                if [[ $str != $res ]];
-                then
-                    printf '\tSearch Term: %s\n' ${TERM^^}
-                    printf '%s\n' "${res}"
-                fi
-            fi
-            cleanExit
-        ;;
-        
-        c)
-            # Search term within given CSV file
-            # 2nd param = file name last character e.g. (0 - 6 and _)
-            # 3rd param = search term
-            if [[ $# -eq 3 ]];
-            then
-                FILE_NAME="ChromePasswords${2}.csv"
-                FILE_PATH="$SRC$FILE_NAME"
-                TERM=$3
-                # printf 'parameters: %s %s\nfile name: %s\nfile path: %s\n' $2, $3, $FILE_NAME, $FILE_PATH
-                # ls -lhmnogs $FILE_PATH
-                
-                res=$(sed -n '2,$p' $FILE_PATH | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
-                if [[ $str != $res ]];
-                then
-                    printf '\tSearch Term: %s\n' ${TERM^^}
-                    printf '%s\n' "${res}"
-                else
-                    exitProg
-                fi
-            else
-                exitProg
-            fi
-            cleanExit
-        ;;
-        
-        :)
+
+    o)
+        # Search term within the latest CSV file
+        # 2nd param = search term
+        if [[ $# -lt 2 ]]; then
             exitProg
+        else
+            TERM=$2
+            # printf '\tSearch Term: %s\n' ${TERM^^}
+            res=$(sed -n '2,$p' $SRC_DEFAULT | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+
+            if [[ $str != $res ]]; then
+                printf '\tSearch Term: %s\n' ${TERM^^}
+                printf '%s\n' "${res}"
+            fi
+        fi
+        cleanExit
         ;;
-        
-        \?)
-            synopsis
+
+    c)
+        # Search term within given CSV file
+        # 2nd param = file name last character e.g. (0 - 6 and _)
+        # 3rd param = search term
+        if [[ $# -eq 3 ]]; then
+            FILE_NAME="ChromePasswords${2}.csv"
+            FILE_PATH="$SRC$FILE_NAME"
+            TERM=$3
+            # printf 'parameters: %s %s\nfile name: %s\nfile path: %s\n' $2, $3, $FILE_NAME, $FILE_PATH
+            # ls -lhmnogs $FILE_PATH
+
+            res=$(sed -n '2,$p' $FILE_PATH | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+            if [[ $str != $res ]]; then
+                printf '\tSearch Term: %s\n' ${TERM^^}
+                printf '%s\n' "${res}"
+            else
+                exitProg
+            fi
+        else
+            exitProg
+        fi
+        cleanExit
+        ;;
+
+    :)
+        exitProg
+        ;;
+
+    \?)
+        synopsis
         ;;
     esac
 done
-shift "$(($OPTIND -1))"
+shift "$(($OPTIND - 1))"
 
-if [ $# -gt 0 ];
-then
+if [ $# -gt 0 ]; then
     unset $@
 fi
