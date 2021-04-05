@@ -8,35 +8,35 @@ declare -r ERROR_EXIT=123
 declare -r PROG="Unlock User Account"
 
 prog() {
-    printf "\n\t`white "${PROG^^}"`\n\n"
-    exit $CLEAN_EXIT
+    printf "\n\t%s\n\n" "$(white "${PROG^^}")"
 }
 
 snyopsis() {
-    printf "\n`yellow "Synopsis"`\n\t`white "uua.sh <Username>"`\n\n"
-    exit $CLEAN_EXIT
+    printf "\n%s%s\n\n" "$(yellow "Synopsis:")" "$(white "lua.sh <Username>")"
 }
 
 error() {
-    printf "\n\t$(red "Error: ")$(white "Unknown Error Occurred")\n"
+    printf "\n\t%s%s\n\n" "$(red "Error:")" "$(white "Unknown Error Occurred")"
     exit $ERROR_EXIT
 }
 
-if [ $1 == "h" ] || [ $1 == "-h" ] || [ $1 == "?" ];
+if [ $1 == "p" ] || [ $1 == "-p" ];
+then
+    prog
+    exit $CLEAN_EXIT
+elif [ $1 == "h" ] || [ $1 == "-h" ] || [ $1 == "?" ];
 then
     snyopsis
     exit $CLEAN_EXIT
-elif [ $1 == "p" ] | [ $1 == "-p" ]; then
-    prog
 elif [ $UID -ne $ROOT ]; then
-    printf "\n\tYou must run this script as privileged user\n\n"
+    printf "\n\t%s\n\n" "$(white "You must run this script as privileged user")"
     exit $NOT_ROOT
 fi
 
-if [ ! -e $1 ]; then
+if [ ! -e $1 ] && [ $# -eq 1 ]; then
     userName=$1
     if [ ${#userName} -eq 0 ]; then
-        echo -e "\n\t\e[28;5;24m`white "Username ${1^^} does not exist"`\e[m\n"
+        echo -e "\n\t\e[28;5;24m$(white "Username ${1^^} does not exist")\e[m\n"
         exit $NON_USER
     elif [ ${#userName} -gt 0 ]; then
         usermod -U $userName

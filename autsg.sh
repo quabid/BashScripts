@@ -7,10 +7,9 @@ declare -r CLEAN_EXIT=0
 declare -r ERROR_EXIT=123
 declare -r PROG="Add User To Sudo Group"
 
-
 if [ $UID -ne $ROOT ]; then
-    printf "\n\tYou must run this script as privileged user\n\n"
-    exit 121
+    white "\n\tYou must run this script as privileged user\n\n"
+    exit $NOT_ROOT
 fi
 
 if [ ! -e $1 ]; then
@@ -18,13 +17,13 @@ if [ ! -e $1 ]; then
 
     if [ ${#userName} -eq 0 ]; then
         printf "\n\tUsername does not exist\n\n"
-        exit 119
+        exit $NON_USER
     elif [ ${#userName} -gt 0 ]; then
-        usermod -aG sudo $userName
+        usermod -aG sudo "$userName"
         # printf "\n\tGod-Damn ${userName} this is gooooood to go!!!\n\n"
-        exit 0
+        exit $CLEAN_EXIT
     fi
 else
     printf "\nMust enter a valid username\n\n"
-    exit 120
+    exit $NON_USER
 fi

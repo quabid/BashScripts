@@ -8,15 +8,15 @@ declare -r ERROR_EXIT=123
 declare -r PROG="Lock User Account"
 
 prog() {
-    printf "\n\t`white "${PROG^^}"`\n\n"
+    printf "\n\t%s\n\n" "$(white "${PROG^^}")"
 }
 
 snyopsis() {
-    printf "\n`yellow "Synopsis"`\n\t`white "lua.sh <Username>"`\n"
+    printf "\n%s%s\n\n" "$(yellow "Synopsis:")" "$(white "lua.sh <Username>")"
 }
 
 error() {
-    printf "\n\t$(red "Error: ")$(white "Unknown Error Occurred")\n"
+    printf "\n\t%s%s\n\n" "$(red "Error:")" "$(white "Unknown Error Occurred")"
     exit $ERROR_EXIT
 }
 
@@ -33,10 +33,10 @@ elif [ $UID -ne $ROOT ]; then
     exit $NOT_ROOT
 fi
 
-if [ ! -e $1 ]; then
+if [ ! -e $1 ] && [ $# -eq 1 ]; then
     userName=$1
     if [ ${#userName} -eq 0 ]; then
-        echo -e "\n\t\e[28;5;24m`white "Username ${1^^} does not exist"`\e[m\n"
+        echo -e "\n\t\e[28;5;24m$(white "Username ${1^^} does not exist")\e[m\n"
         exit $NON_USER
     elif [ ${#userName} -gt 0 ]; then
         usermod -L $userName

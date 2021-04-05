@@ -1,5 +1,6 @@
 #!/bin/bash
 declare -r ROOT=0
+declare -r DESC="Add user to sudo group"
 
 if [ $UID -ne $ROOT ]; then
     printf "\n\tYou must run this script as privileged user\n\n"
