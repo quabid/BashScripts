@@ -59,7 +59,7 @@ while getopts ':?lc:o:' OPTION; do
         else
             TERM=$2
             # printf '\tSearch Term: %s\n' ${TERM^^}
-            res=$(sed -n '2,$p' $SRC_DEFAULT | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+            res=$(sed -n '2,$p' $SRC_DEFAULT | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
 
             if [[ $str != $res ]]; then
                 printf '\tSearch Term: %s\n' ${TERM^^}
@@ -80,7 +80,7 @@ while getopts ':?lc:o:' OPTION; do
             # printf 'parameters: %s %s\nfile name: %s\nfile path: %s\n' $2, $3, $FILE_NAME, $FILE_PATH
             # ls -lhmnogs $FILE_PATH
 
-            res=$(sed -n '2,$p' $FILE_PATH | awk "/${TERM}/" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+            res=$(sed -n '2,$p' $FILE_PATH | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
             if [[ $str != $res ]]; then
                 printf '\tSearch Term: %s\n' ${TERM^^}
                 printf '%s\n' "${res}"
