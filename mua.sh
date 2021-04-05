@@ -1,12 +1,20 @@
 #!/usr/bin/bash
+<<COMMENT
+    Administrative helper script use for:
+        - Adding user to sudo group
+        - Removing user from sudo group
+        - Listing user's group(s)
+        - Locking user account
+        - Unlocking user account
+COMMENT
 declare -r EXIT_PROG=0
 declare -r ROOT_UID=0
 declare -r NON_ROOT=121
 declare -r EXIT_UNKNOWN_USER=120
 declare -r EXIT_NO_ROOT=119
 declare -r PROG="Manage User Account"
-declare -r DESC="An administrator helper script that can lock, unlock accounts and add or remove account from the sudo group.
-This script is Not for use on the root account."
+declare -r DESC="Administrative helper script use for: Adding user to sudo group, Removing user from sudo group,
+Listing user's group(s), Locking user account and Unlocking user account."
 userName=""
 
 clearVars() {
