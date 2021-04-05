@@ -110,7 +110,7 @@ removeUserFromSudoGroup() {
     fi
 }
 
-trap "gracefulExit" INT TERM QUIT EXIT
+trap "gracefulExit" INT TERM QUIT PWR
 
 while getopts ':?l:u:a:L:r:' OPTION; do
     case ${OPTION} in
@@ -153,9 +153,9 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         ;;
 
     L)
-        printf "%s parameter\n" "${OPTION^}"
-        printf "Username argument: %s\n" "$2"
-        printf "%d arguments\n\n" $#
+        # printf "%s parameter\n" "${OPTION^}"
+        # printf "Username argument: %s\n" "$2"
+        # printf "%d arguments\n\n" $#
 
         if [ "$2" == "root" ]; then
             printf "Can't touch %s\n" "${2^^}"
