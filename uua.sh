@@ -12,7 +12,7 @@ prog() {
 }
 
 snyopsis() {
-    printf "\n%s%s\n\n" "$(yellow "Synopsis:")" "$(white "lua.sh <Username>")"
+    printf "\n%s%s\n\n" "$(yellow "Synopsis:")" "$(white "uua.sh <Username>")"
 }
 
 error() {
