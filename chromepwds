@@ -40,7 +40,7 @@ synopsis() {
     printf "\tchromepwds -o google\n\n"
 }
 
-trap "gracefulExit" INT TERM QUIT STOP KILL
+trap "gracefulExit" INT TERM QUIT
 
 while getopts ':?lc:o:' OPTION; do
     case ${OPTION} in
@@ -71,7 +71,7 @@ while getopts ':?lc:o:' OPTION; do
 
     c)
         # Search term within given CSV file
-        # 2nd param = file name last character e.g. (0 - 6 and _)
+        # 2nd param = file name last character e.g. (0 - N and _)
         # 3rd param = search term
         if [[ $# -eq 3 ]]; then
             FILE_NAME="ChromePasswords${2}.csv"
