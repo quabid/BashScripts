@@ -126,9 +126,9 @@ trap "gracefulExit" INT TERM QUIT PWR
 while getopts ':?l:u:a:L:r:' OPTION; do
     case ${OPTION} in
     a)
-        printf "%s parameter\n" "${OPTION^}"
-        printf "Username argument: %s\n" "$2"
-        printf "%d arguments\n\n" $#
+        # printf "%s parameter\n" "${OPTION^}"
+        # printf "Username argument: %s\n" "$2"
+        # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
             userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
@@ -141,9 +141,9 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         ;;
 
     l)
-        printf "%s parameter\n" "${OPTION^}"
-        printf "Username argument: %s\n" "$2"
-        printf "%d arguments\n\n" $#
+        # printf "%s parameter\n" "${OPTION^}"
+        # printf "Username argument: %s\n" "$2"
+        # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
             userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
@@ -171,9 +171,9 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         ;;
 
     r)
-        printf "%s parameter\n" "${OPTION^}"
-        printf "Username argument: %s\n" "$2"
-        printf "%d arguments\n\n" $#
+        # printf "%s parameter\n" "${OPTION^}"
+        # printf "Username argument: %s\n" "$2"
+        # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
             userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
@@ -186,9 +186,9 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         ;;
 
     u)
-        printf "%s parameter\n" "${OPTION^}"
-        printf "Username argument: %s\n" "$2"
-        printf "%d arguments\n\n" $#
+        # printf "%s parameter\n" "${OPTION^}"
+        # printf "Username argument: %s\n" "$2"
+        # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
             userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
