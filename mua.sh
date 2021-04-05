@@ -124,7 +124,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
             exit $EXIT_NO_ROOT
         elif [ "$2" != "root" ]; then
             if [ ! -e "$2" ]; then
-                userName="$(cat /etc/passwd | grep -E "$2" | awk -F : '{print $1}')"
+                userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
                 addUserToSudo "$userName"
             else
                 printf "\nMust enter a valid username \n\n"
@@ -143,7 +143,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
             exit $EXIT_NO_ROOT
         elif [ "$2" != "root" ]; then
             if [ ! -e "$2" ]; then
-                userName="$(cat /etc/passwd | grep -E "$2" | awk -F : '{print $1}')"
+                userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
                 lockUserAccount "$userName"
             else
                 printf "\nMust enter a valid username \n\n"
@@ -162,7 +162,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
             exit $EXIT_NO_ROOT
         elif [ "$2" != "root" ]; then
             if [ ! -e "$2" ]; then
-                userName="$(cat /etc/passwd | grep -E "$2" | awk -F : '{print $1}')"
+                userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
                 listUserGroups "$userName"
             else
                 printf "\nMust enter a valid username \n\n"
@@ -181,7 +181,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
             exit $EXIT_NO_ROOT
         elif [ "$2" != "root" ]; then
             if [ ! -e "$2" ]; then
-                userName="$(cat /etc/passwd | grep -E "$2" | awk -F : '{print $1}')"
+                userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
                 removeUserFromSudoGroup "$userName"
             else
                 printf "\nMust enter a valid username \n\n"
@@ -200,7 +200,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
             exit $EXIT_NO_ROOT
         elif [ "$2" != "root" ]; then
             if [ ! -e "$2" ]; then
-                userName="$(cat /etc/passwd | grep -E "$2" | awk -F : '{print $1}')"
+                userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
                 unlockUserAccount "$userName"
             else
                 printf "\nMust enter a valid username \n\n"
