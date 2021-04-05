@@ -5,7 +5,7 @@ declare -r NON_ROOT=121
 declare -r EXIT_UNKNOWN_USER=120
 declare -r EXIT_NO_ROOT=119
 declare -r PROG="Manage User Account"
-declare -r DESC="An administrator script that can lock, unlock and add a non-root user to the sudo group"
+declare -r DESC="An administrator helper script that can lock, unlock accounts and add or remove account from the sudo group.\nThis script is for working with non-root accounts."
 userName=""
 
 clearVars() {
@@ -24,10 +24,12 @@ exitProg() {
 synopsis() {
     printf "\n\t%s\n" "$(color -w "${PROG^^}")"
     printf "\n%s\n" "$(color -w "$DESC")"
-    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aul?>")" " $(white "<argument>")"
-    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Options: ")" "$(color -w "?:\tPrints this message")" \
-        "$(color -w "a:\tAdd user account to the sudo group")" \
+    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-alLru?>")" " $(white "<argument>")"
+    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
+        "$(color -w "a:\tAdd user to the sudo group")" \
         "$(color -w "l:\tLock user acount")" \
+        "$(color -w "L:\tList user's groups")" \
+        "$(color -w "r:\tRemove user from the sudo group")" \
         "$(color -w "u:\tUnlock user accunt")"
 }
 
@@ -81,10 +83,7 @@ listUserGroups() {
         printf "\t%s\n" "$(color -r "Unknown username")"
         exit $EXIT_UNKNOWN_USER
     elif [ ${#userName} -gt 0 ]; then
-        # id -nG $userName
-        for G in $(id -nG $userName); do
-            printf "%s\n" "$G"
-        done
+        groups $userName
         if [ ! $? -eq 0 ]; then
             exit $#
         else
@@ -94,22 +93,14 @@ listUserGroups() {
 }
 
 removeUserFromSudoGroup() {
+    # Check that username exists
     if [ ${#userName} -eq 0 ]; then
         printf "\t%s\n" "$(color -r "Unknown username")"
         exit $EXIT_UNKNOWN_USER
+    # Confirm userName variable is not empty
     elif [ ${#userName} -gt 0 ]; then
-        # id -nG $userName
-        integer=0
-
-        for G in $(id -nG $userName); do
-            printf "%d\n" $integer
-            if [ "$G" != "sudo" ]; then
-                grps="$grps,$G"
-            fi
-            integer=$((integer + 1))
-        done
-        printf "Grps: %s" "${grps^^}"
-        # usermod -G "$grps" $userName
+        # gpasswd -d $userName "sudo"
+        printf "\t\t%s\n\n" "Done and Done!!"
         if [ ! $? -eq 0 ]; then
             exit $#
         else
