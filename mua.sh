@@ -5,7 +5,8 @@ declare -r NON_ROOT=121
 declare -r EXIT_UNKNOWN_USER=120
 declare -r EXIT_NO_ROOT=119
 declare -r PROG="Manage User Account"
-declare -r DESC="An administrator helper script that can lock, unlock accounts and add or remove account from the sudo group.\nThis script is for working with non-root accounts."
+declare -r DESC="An administrator helper script that can lock, unlock accounts and add or remove account from the sudo group.
+This script is Not for use on the root account."
 userName=""
 
 clearVars() {
@@ -24,7 +25,7 @@ exitProg() {
 synopsis() {
     printf "\n\t%s\n" "$(color -w "${PROG^^}")"
     printf "\n%s\n" "$(color -w "$DESC")"
-    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-alLru?>")" " $(white "<argument>")"
+    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-alLru?>")" " $(white "<username>")"
     printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
         "$(color -w "a:\tAdd user to the sudo group")" \
         "$(color -w "l:\tLock user acount")" \
