@@ -40,7 +40,7 @@ synopsis() {
     printf "\tchromepwds -o google\n\n"
 }
 
-trap "gracefulExit" INT TERM QUIT
+trap "gracefulExit" INT TERM QUIT PWR
 
 while getopts ':?lc:o:' OPTION; do
     case ${OPTION} in
