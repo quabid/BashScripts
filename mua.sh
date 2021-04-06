@@ -52,7 +52,7 @@ addUserToSudo() {
     elif [ ${#userName} -gt 0 ]; then
         # usermod -aG $userName
         printf "\t\t%s\n\n" "Done and Done!!"
-        if [ ! $? -eq 0 ]; then
+        if [ -z $? ]; then
             exit $#
         else
             exit $EXIT_PROG
@@ -67,7 +67,7 @@ lockUserAccount() {
     elif [ ${#userName} -gt 0 ]; then
         # usermod -L $userName
         printf "\t\t%s\n\n" "Done and Done!!"
-        if [ ! $? -eq 0 ]; then
+        if [ -z $? ]; then
             exit $#
         else
             exit $EXIT_PROG
@@ -82,7 +82,7 @@ unlockUserAccount() {
     elif [ ${#userName} -gt 0 ]; then
         # usermod -U $userName
         printf "\t\t%s\n\n" "Done and Done!!"
-        if [ ! $? -eq 0 ]; then
+        if [ -z $? ]; then
             exit $#
         else
             exit $EXIT_PROG
@@ -95,8 +95,8 @@ listUserGroups() {
         printf "\t%s\n" "$(color -r "Unknown username")"
         exit $EXIT_UNKNOWN_USER
     elif [ ${#userName} -gt 0 ]; then
-        groups $userName
-        if [ ! $? -eq 0 ]; then
+        groups "$userName"
+        if [ -z $? ]; then
             exit $#
         else
             exit $EXIT_PROG
@@ -113,7 +113,7 @@ removeUserFromSudoGroup() {
     elif [ ${#userName} -gt 0 ]; then
         # gpasswd -d $userName "sudo"
         printf "\t\t%s\n\n" "Done and Done!!"
-        if [ ! $? -eq 0 ]; then
+        if [ -z $? ]; then
             exit $#
         else
             exit $EXIT_PROG
@@ -131,7 +131,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
-            userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             addUserToSudo "$userName"
         else
             printf "\nMust enter a valid username \n\n"
@@ -146,7 +146,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
-            userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             lockUserAccount "$userName"
         else
             printf "\nMust enter a valid username \n\n"
@@ -161,7 +161,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
-            userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             listUserGroups "$userName"
         else
             printf "\nMust enter a valid username \n\n"
@@ -176,7 +176,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
-            userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             removeUserFromSudoGroup "$userName"
         else
             printf "\nMust enter a valid username \n\n"
@@ -191,7 +191,7 @@ while getopts ':?l:u:a:L:r:' OPTION; do
         # printf "%d arguments\n\n" $#
 
         if [ ! -e "$2" ]; then
-            userName="$(cat /etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             unlockUserAccount "$userName"
         else
             printf "\nMust enter a valid username \n\n"
