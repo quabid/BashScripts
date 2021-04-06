@@ -41,7 +41,7 @@ synopsis() {
     printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aAlLru?>")" " $(white "<username>")"
     printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
         "$(color -w "a:\tAdd user to the sudo group")" \
-        "$(color -w "A:\tAdd user to the group")" \
+        "$(color -w "A:\tAdd user to the group - Synopsis: ${0} -A <user-name> <group-name>")" \
         "$(color -w "l:\tLock user acount")" \
         "$(color -w "L:\tList user's groups")" \
         "$(color -w "r:\tRemove user from the sudo group")" \
