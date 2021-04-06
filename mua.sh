@@ -51,6 +51,7 @@ synopsis() {
 addUserToGroup() {
     # usermod -aG $userName $groupName
     printf "\n\t%s\n\n" "$(color -P "Done and Done!!")"
+    exit $EXIT_PROG
 }
 
 addUserToSudo() {
@@ -109,8 +110,6 @@ while getopts ':?l:u:a:L:r:A:' OPTION; do
             userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
             groupName="$(cat </etc/group | awk -F : '{print $1}' | grep -E "\b($3)\b")"
 
-            printf "User: %s, Group: %s\n\n" "$userName" "$groupName"
-
             if [ -n "$userName" ]; then
                 if [ -n "$groupName" ]; then
                     addUserToGroup "$userName" "$groupName"
@@ -118,19 +117,11 @@ while getopts ':?l:u:a:L:r:A:' OPTION; do
                     printf "\n\t%s\n\n" "$(color -o "Group ${3^^} does not exist!")"
                     exit $EXIT_UNKNOWN_GROUP
                 fi
-
             else
                 printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
                 exit $EXIT_UNKNOWN_USER
             fi
         fi
-        # if [ ! -e "$2" ]; then
-        #     userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-        #     addUserToSudo "$userName"
-        # else
-        #     printf "\nMust enter a valid username \n\n"
-        #     exit $EXIT_UNKNOWN_USER
-        # fi
 
         ;;
 
