@@ -7,8 +7,8 @@
         - Locking user account
         - Unlocking user account
 
-    Uncomment lines 53, 68 83 and 114
-    Comment or delete lines 54, 69, 84 and 115
+    Uncomment lines 52, 58, 64, 70 and 81
+    Comment or delete lines 53, 59, 65, 71 and 82
 COMMENT
 declare -r EXIT_PROG=0
 declare -r ROOT_UID=0
