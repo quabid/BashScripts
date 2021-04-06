@@ -15,8 +15,8 @@ usage() {
     # where ColorNumber is one of the following colors:
 
     echo -e "\e[38;5;149mOptions:"
-    echo -e "\t\e[97mB: \e[38;5;234m Black"
     echo -e "\t\e[38;5;224mb: \e[38;5;39m Blue"
+    echo -e "\t\e[97mB: \e[38;5;234m Black"
     echo -e "\t\e[38;5;224mc: \e[38;5;87m Cyan"
     echo -e "\t\e[38;5;224mg: \e[38;5;119m Green"
     echo -e "\t\e[38;5;224mm: \e[38;5;200m Magenta"
@@ -33,8 +33,8 @@ synopsis() {
     echo -e "\e[38;5;209m\n\t\tColor Usage Detail\e[m"
     printf "%s\n" "$(color -w "Synopsis: color <BbcgmoPprwxy> <Quoted Text>")"
     printf "%s\n" "$(color -w "By default, the color intensity is configured high")"
-    echo -e "\e[38;5;234m     Black = B\e[m"
     echo -e "\e[38;5;39m     Blue = b\e[m"
+    echo -e "\e[38;5;234m     Black = B\e[m"
     echo -e "\e[38;5;87m     Cyan = c\e[m"
     echo -e "\e[38;5;119m     Green = g\e[m"
     echo -e "\e[38;5;200m     Magenta = m\e[m"
