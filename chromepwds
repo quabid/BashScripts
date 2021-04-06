@@ -30,7 +30,7 @@ exitProg() {
 
 synopsis() {
     clear
-    printf "Program file: %s\n\n%s's home: %s\n\n" "chromepwds" "chromepwds" "~/bin"
+    printf "Program file: %s\n\n%s's home: %s\n\n" "chromepwds" "chromepwds" "$HOME/bin"
     printf "Synopsis: chromepwds <[ option ]>\n\n"
     printf "Options:\n\t? = Display this manual\n\tl = List the CSV files location\n\tc = Search the given CSV file for given term\n\to = Search the latest CSV file for given term\n\n"
     printf "Examples:\n"
@@ -46,8 +46,8 @@ while getopts ':?lc:o:' OPTION; do
     case ${OPTION} in
     l)
         # list all CSV files in the $SRC directory
-        printf "\nThe CSV files live at: %s $(echo $SRC)\n"
-        ls -halt $SRC | grep ".*\.csv"
+        printf "\nThe CSV files live at: %s $SRC\n"
+        ls "$SRC" | grep ".csv$"
         cleanExit
         ;;
 
@@ -59,10 +59,10 @@ while getopts ':?lc:o:' OPTION; do
         else
             TERM=$2
             # printf '\tSearch Term: %s\n' ${TERM^^}
-            res=$(sed -n '2,$p' $SRC_DEFAULT | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+            res=$(sed -n '2,$p' "$SRC_DEFAULT" | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
 
-            if [[ $str != $res ]]; then
-                printf '\tSearch Term: %s\n' ${TERM^^}
+            if [ -n "$res" ]; then
+                printf '\tSearch Term: %s\n' "${TERM^^}"
                 printf '%s\n' "${res}"
             fi
         fi
@@ -80,9 +80,9 @@ while getopts ':?lc:o:' OPTION; do
             # printf 'parameters: %s %s\nfile name: %s\nfile path: %s\n' $2, $3, $FILE_NAME, $FILE_PATH
             # ls -lhmnogs $FILE_PATH
 
-            res=$(sed -n '2,$p' $FILE_PATH | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
-            if [[ $str != $res ]]; then
-                printf '\tSearch Term: %s\n' ${TERM^^}
+            res=$(sed -n '2,$p' "$FILE_PATH" | grep -E "\b($TERM)\b" | awk '{gsub(/[ \t]/,",");print}' | awk -F ',' '{print "URL:",$1, " Username:",$2, " Password:", $3;}')
+            if [[ -n "$res" ]]; then
+                printf '\tSearch Term: %s\n' "${TERM^^}"
                 printf '%s\n' "${res}"
             else
                 exitProg
@@ -102,8 +102,8 @@ while getopts ':?lc:o:' OPTION; do
         ;;
     esac
 done
-shift "$(($OPTIND - 1))"
+shift "(($OPTIND - 1))"
 
 if [ $# -gt 0 ]; then
-    unset $@
+    unset "$@"
 fi
