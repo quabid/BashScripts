@@ -8,7 +8,7 @@ gracefulExit() {
 }
 
 usage() {
-    printf "%s" "$(color -w "Usage: color <option> <Quoted Text>")"
+    printf "%s\n" "$(color -w "Usage: color <option> <Quoted Text>")"
     # For using one of the 256 colors on the foreground (text color), the control sequence is “<Esc>[38;5;ColorNumberm”
     #  where ColorNumber is one of the following colors:
     # For using one of the 256 colors on the background, the control sequence is “<Esc>[48;5;ColorNumberm”
