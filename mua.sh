@@ -2,6 +2,7 @@
 <<COMMENT
     Administrative helper script use for:
         - Adding user to sudo group
+        - Adding user to given group
         - Removing user from sudo group
         - Listing user's group(s)
         - Locking user account
