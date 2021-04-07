@@ -29,11 +29,6 @@ usage() {
     echo -e "\t\e[38;5;224my: \e[38;5;226m Yellow"
 }
 
-demo() {
-    for N in {1..255}; do color -x $N "Color value is $N!"; done
-    exit 0
-}
-
 printRangeVertically() {
     for N in {1..255}; do
         line="$(color -x "$N" "Color value is $N!")"
@@ -53,7 +48,7 @@ printRangeHorizontally() {
 
 synopsis() {
     echo -e "\e[38;5;209m\n\t\tColor Usage Detail\e[m"
-    printf "%s\n" "$(color -w "Synopsis: color <BbcdgHmoPprVwxy> <Quoted Text>")"
+    printf "%s\n" "$(color -w "Synopsis: color <BbcdgHmoPprwxy> <Quoted Text>")"
     printf "%s\n" "$(color -w "By default, the color intensity is configured high")"
     echo -e "\e[38;5;39m     Blue = b\e[m"
     echo -e "\e[38;5;234m     Black = B\e[m"
@@ -69,12 +64,11 @@ synopsis() {
     echo -e "\e[38;5;226m     Yellow = y\e[m"
     echo -e "\e[38;5;224m     Demo = d\e[m"
     echo -e "\e[38;5;224m     Horizontal Demo = H\e[m"
-    echo -e "\e[38;5;224m     Vertical Demo = V\e[m"
     printf "\n"
     gracefulExit
 }
 
-while getopts ':dB:b:c:g:m:o:p:P:r:w:x:y:hHV' OPTION; do
+while getopts ':dB:b:c:g:m:o:p:P:r:w:x:y:hH' OPTION; do
     case "$OPTION" in
     B)
         # printf 'Option %s chosen\n' "${OPTION}"
@@ -92,7 +86,7 @@ while getopts ':dB:b:c:g:m:o:p:P:r:w:x:y:hHV' OPTION; do
         ;;
 
     d)
-        demo
+        printRangeVertically
         ;;
 
     g)
@@ -130,10 +124,6 @@ while getopts ':dB:b:c:g:m:o:p:P:r:w:x:y:hHV' OPTION; do
     r)
         # printf 'Option %s chosen\n' "${OPTION}"
         echo -e "\e[38;5;196m${OPTARG}\e[m"
-        ;;
-
-    V)
-        printRangeVertically
         ;;
 
     w)
