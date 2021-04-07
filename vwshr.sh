@@ -10,7 +10,9 @@ gracefulExit() {
 }
 
 synopsis() {
-    printf "\n%s\n%s\n\n" "$(color -P "View objects shared by host")" "$(color -w "Synopsis: vwshrs <Hostname|IP> <Username>")"
+    printf "\n%s\n%s\n\n" \
+        "$(color -P "View objects shared by host")" \
+        "$(color -w "Synopsis: vwshrs <Hostname|IP> <Username>")"
 }
 
 usage() {
