@@ -26,7 +26,7 @@ printRangeVertically() {
 printRangeHorizontally() {
     for N in {1..255}; do
         line="$(color -x "$N" "Color value is $N!")"
-        printf "%s " "$line"
+        printf "%s\t" "$line"
     done
     exit 0
 }
