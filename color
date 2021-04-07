@@ -72,7 +72,7 @@ while getopts ':dB:b:c:g:m:o:p:P:r:w:x:y:hH' OPTION; do
     case "$OPTION" in
     B)
         # printf 'Option %s chosen\n' "${OPTION}"
-        echo -e "\e[38;5;234m${OPTARG}\e[m"
+        echo -e "\e[38;5;240m${OPTARG}\e[m"
         ;;
 
     b)
