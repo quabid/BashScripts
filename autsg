@@ -1,21 +1,19 @@
 #!/bin/bash
 declare -r ROOT=0
-declare -r DESC="Add user to sudo group"
 
-if [ $UID -ne $ROOT ]; then
-    printf "\n\tYou must run this script as privileged user\n\n"
-    exit 121
-fi
+# if [ $UID -ne $ROOT ]; then
+#     printf "\n\tYou must run this script as privileged user\n\n"
+#     exit 121
+# fi
 
-if [ ! -e $1 ]; then
-    userName=$(cat /etc/passwd | grep -E "$1" | awk -F : '{print $1}')
+if [ ! -e "$1" ]; then
+    userName=$(cat /etc/passwd | grep -E "\b($1)\b" | awk -F : '{print $1}')
 
-    if [ ${#userName} -eq 0 ]; then
-        printf "\n\tUsername does not exist\n\n"
+    if [ -z "$userName" ]; then
+        printf "\n%s\n\n" "$(color -r "$(blink.sh "Username ${1^^} does not exist!")")"
         exit 119
-    elif [ ${#userName} -gt 0 ]; then
-        usermod -aG sudo $userName
-        # printf "\n\tGod-Damn ${userName} this is gooooood to go!!!\n\n"
+    else
+        # usermod -aG sudo "$userName"
         exit 0
     fi
 else
