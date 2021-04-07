@@ -28,6 +28,7 @@ printRangeHorizontally() {
         line="$(color -x "$N" "Color value is $N!")"
         printf "%s\t" "$line"
     done
+    printf "\n\n"
     exit 0
 }
 
