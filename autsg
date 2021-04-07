@@ -1,10 +1,10 @@
 #!/bin/bash
 declare -r ROOT=0
 
-# if [ $UID -ne $ROOT ]; then
-#     printf "\n\tYou must run this script as privileged user\n\n"
-#     exit 121
-# fi
+if [ $UID -ne $ROOT ]; then
+    printf "\n\tYou must run this script as privileged user\n\n"
+    exit 121
+fi
 
 if [ ! -e "$1" ]; then
     userName=$(cat /etc/passwd | grep -E "\b($1)\b" | awk -F : '{print $1}')
