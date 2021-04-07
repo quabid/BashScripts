@@ -6,26 +6,41 @@ declare -r DESC="Prints sentences vertically in the color matching that color ra
 
 synopsis() {
     printf "\n\t%s" "$(color -w "${PROG}")"
-    printf "\n\t%s" "$(color -x 226 "${DESC}")"
-    printf "\n\t%s\n\n" "$(color -x 178 "Synopsis: ${0} <?h>")"
+    printf "\n%s" "$(color -x 226 "${DESC}")"
+    printf "\n%s\n" "$(color -x 178 "Synopsis: ${0} <?hv>")"
+    printf "\nParameters:\n\t%s\n\t%s\n\t%s\n\n" \
+        "$(color -w "?:\tPrints this message")" \
+        "$(color -w "h:\tPrints color range horizontally")" \
+        "$(color -w "v:\tPrints color range vertically")"
     exit 0
 }
 
-printRange() {
-    for N in {1..255}; do color -x $N "Color value is $N!"; done
+printRangeVertically() {
+    for N in {1..255}; do
+        line="$(color -x "$N" "Color value is $N!")"
+        printf "%s\n" "$line"
+    done
+    exit 0
+}
+
+printRangeHorizontally() {
+    for N in {1..255}; do
+        line="$(color -x "$N" "Color value is $N!")"
+        printf "%s " "$line"
+    done
     exit 0
 }
 
 trap "gracefulExit" INT TERM QUIT PWR
 
-while getopts ':?h' OPTION; do
+while getopts ':?hv' OPTION; do
     case ${OPTION} in
-    h)
-        printRange
+    v)
+        printRangeVertically
         ;;
 
-    :)
-        printRange
+    h)
+        printRangeHorizontally
         ;;
 
     \?)
