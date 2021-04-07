@@ -51,7 +51,7 @@ synopsis() {
     printf "%s\n" "$(color -w "Synopsis: color <BbcdgHmoPprwxy> <Quoted Text>")"
     printf "%s\n" "$(color -w "By default, the color intensity is configured high")"
     echo -e "\e[38;5;39m     Blue = b\e[m"
-    echo -e "\e[38;5;234m     Black = B\e[m"
+    echo -e "\e[38;5;240m     Black = B\e[m"
     echo -e "\e[38;5;87m     Cyan = c\e[m"
     echo -e "\e[38;5;119m     Green = g\e[m"
     echo -e "\e[38;5;200m     Magenta = m\e[m"
