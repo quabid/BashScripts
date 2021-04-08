@@ -86,121 +86,125 @@ removeUserFromSudoGroup() {
 
 trap "gracefulExit" INT TERM QUIT PWR
 
-while getopts ':?l:u:a:L:r:A:' OPTION; do
-    case ${OPTION} in
-    a)
-        # Add user to sudo group
+if [ $UID -ne "$ROOT_UID" ]; then
+    printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+else
+    while getopts ':?l:u:a:L:r:A:' OPTION; do
+        case ${OPTION} in
+        a)
+            # Add user to sudo group
 
-        if [ ! -e "$2" ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            if [ -n "$userName" ]; then
-                addUserToSudo "$userName"
-            else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
-                exit $EXIT_UNKNOWN_USER
-            fi
-        else
-            printf "\nMust enter a valid username \n\n"
-            exit $EXIT_UNKNOWN_USER
-        fi
-
-        ;;
-    A)
-        # Add user to existing group
-
-        if [ $# -eq 3 ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            groupName="$(cat </etc/group | awk -F : '{print $1}' | grep -E "\b($3)\b")"
-            if [ -n "$userName" ]; then
-                if [ -n "$groupName" ]; then
-                    addUserToGroup "$userName" "$groupName"
+            if [ ! -e "$2" ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                if [ -n "$userName" ]; then
+                    addUserToSudo "$userName"
                 else
-                    printf "\n\t%s\n\n" "$(color -o "Group ${3^^} does not exist!")"
-                    exit $EXIT_UNKNOWN_GROUP
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
                 fi
             else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                printf "\nMust enter a valid username \n\n"
                 exit $EXIT_UNKNOWN_USER
             fi
-        fi
 
-        ;;
+            ;;
+        A)
+            # Add user to existing group
 
-    l)
-        # Lock user account
+            if [ $# -eq 3 ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                groupName="$(cat </etc/group | awk -F : '{print $1}' | grep -E "\b($3)\b")"
+                if [ -n "$userName" ]; then
+                    if [ -n "$groupName" ]; then
+                        addUserToGroup "$userName" "$groupName"
+                    else
+                        printf "\n\t%s\n\n" "$(color -o "Group ${3^^} does not exist!")"
+                        exit $EXIT_UNKNOWN_GROUP
+                    fi
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
+                fi
+            fi
 
-        if [ ! -e "$2" ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            if [ -n "$userName" ]; then
-                lockUserAccount "$userName"
+            ;;
+
+        l)
+            # Lock user account
+
+            if [ ! -e "$2" ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                if [ -n "$userName" ]; then
+                    lockUserAccount "$userName"
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
+                fi
             else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                printf "\nMust enter a valid username \n\n"
                 exit $EXIT_UNKNOWN_USER
             fi
-        else
-            printf "\nMust enter a valid username \n\n"
-            exit $EXIT_UNKNOWN_USER
-        fi
 
-        ;;
+            ;;
 
-    L)
-        # List user's group(s)
+        L)
+            # List user's group(s)
 
-        if [ ! -e "$2" ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            if [ -n "$userName" ]; then
-                listUserGroups "$userName"
+            if [ ! -e "$2" ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                if [ -n "$userName" ]; then
+                    listUserGroups "$userName"
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
+                fi
             else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                printf "\nMust enter a valid username \n\n"
                 exit $EXIT_UNKNOWN_USER
             fi
-        else
-            printf "\nMust enter a valid username \n\n"
-            exit $EXIT_UNKNOWN_USER
-        fi
 
-        ;;
+            ;;
 
-    r)
-        # Remove user from sudo group
+        r)
+            # Remove user from sudo group
 
-        if [ ! -e "$2" ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            if [ -n "$userName" ]; then
-                removeUserFromSudoGroup "$userName"
+            if [ ! -e "$2" ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                if [ -n "$userName" ]; then
+                    removeUserFromSudoGroup "$userName"
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
+                fi
             else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                printf "\nMust enter a valid username \n\n"
                 exit $EXIT_UNKNOWN_USER
             fi
-        else
-            printf "\nMust enter a valid username \n\n"
-            exit $EXIT_UNKNOWN_USER
-        fi
 
-        ;;
+            ;;
 
-    u)
-        # Unlock user account
+        u)
+            # Unlock user account
 
-        if [ ! -e "$2" ]; then
-            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
-            if [ -n "$userName" ]; then
-                unlockUserAccount "$userName"
+            if [ ! -e "$2" ]; then
+                userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+                if [ -n "$userName" ]; then
+                    unlockUserAccount "$userName"
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_USER
+                fi
             else
-                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                printf "\nMust enter a valid username \n\n"
                 exit $EXIT_UNKNOWN_USER
             fi
-        else
-            printf "\nMust enter a valid username \n\n"
-            exit $EXIT_UNKNOWN_USER
-        fi
 
-        ;;
+            ;;
 
-    \?)
-        synopsis
-        ;;
-    esac
-done
-shift "$(($OPTIND - 1))"
+        \?)
+            synopsis
+            ;;
+        esac
+    done
+    shift "$(($OPTIND - 1))"
+fi
