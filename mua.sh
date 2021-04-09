@@ -39,7 +39,7 @@ synopsis() {
     printf "\n\t%s\n" "$(color -w "${PROG^^}")"
     printf "\n%s\n" "$(color -w "$DESC")"
     printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aAlLru?>")" " $(white "<username>")"
-    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
+    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
         "$(color -w "a:\tAdd user to the sudo group")" \
         "$(color -w "A:\tAdd user to the group - Synopsis: ${0} -A <user-name> <group-name>")" \
         "$(color -w "l:\tLock user acount")" \
