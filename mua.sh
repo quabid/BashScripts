@@ -16,7 +16,6 @@ declare -r ROOT_UID=0
 declare -r NON_ROOT=121
 declare -r EXIT_UNKNOWN_USER=120
 declare -r EXIT_UNKNOWN_GROUP=119
-declare -r EXIT_NO_ROOT=118
 declare -r PROG="Manage User Account"
 declare -r DESC="Administrative helper script use for: Adding user to sudo group, Removing user from sudo group,
 Listing user's group(s), Locking user account and Unlocking user account."
@@ -52,6 +51,7 @@ synopsis() {
 addUserToGroup() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         # usermod -aG $userName $groupName
         printf "\n\t%s\n\n" "$(color -P "Done and Done!!")"
@@ -62,6 +62,7 @@ addUserToGroup() {
 addUserToSudo() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         # usermod -aG $userName sudo
         printf "\t\t%s\n\n" "Done and Done!!"
@@ -72,6 +73,7 @@ addUserToSudo() {
 lockUserAccount() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         # usermod -L $userName
         printf "\t\t%s\n\n" "Done and Done!!"
@@ -82,6 +84,7 @@ lockUserAccount() {
 unlockUserAccount() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         # usermod -U $userName
         printf "\t\t%s\n\n" "Done and Done!!"
@@ -92,6 +95,7 @@ unlockUserAccount() {
 listUserGroups() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         groups "$userName"
         exit $EXIT_PROG
@@ -101,6 +105,7 @@ listUserGroups() {
 removeUserFromSudoGroup() {
     if [ $UID -ne "$ROOT_UID" ]; then
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
     else
         # gpasswd -d $userName "sudo"
         printf "\t\t%s\n\n" "Done and Done!!"
