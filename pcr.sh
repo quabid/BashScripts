@@ -18,14 +18,14 @@ synopsis() {
 printRangeVertically() {
     for N in {1..255}; do
         line="$(color -x "$N" "Color value is $N!")"
-        printf "%s\n" "$line"
+        printf "\t%s\n" "$line"
     done
     exit 0
 }
 
 printRangeHorizontally() {
     for N in {1..255}; do
-        line="$(color -x "$N" "Color value is $N!")"
+        line="$(color -x "$N" "Color $N!")"
         printf "%s\t" "$line"
     done
     printf "\n\n"
