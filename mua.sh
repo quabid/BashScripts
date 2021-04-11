@@ -53,8 +53,8 @@ addUserToGroup() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        # usermod -aG $userName $groupName
-        printf "\n\t%s\n\n" "$(color -P "Done and Done!!")"
+        usermod -aG $userName $groupName
+        # printf "\n\t%s\n\n" "$(color -P "Done and Done!!")"
         exit $EXIT_PROG
     fi
 }
@@ -64,8 +64,8 @@ addUserToSudo() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        # usermod -aG $userName sudo
-        printf "\t\t%s\n\n" "Done and Done!!"
+        usermod -aG $userName sudo
+        # printf "\t\t%s\n\n" "Done and Done!!"
         exit $EXIT_PROG
     fi
 }
@@ -75,8 +75,8 @@ lockUserAccount() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        # usermod -L $userName
-        printf "\t\t%s\n\n" "Done and Done!!"
+        usermod -L $userName
+        # printf "\t\t%s\n\n" "Done and Done!!"
         exit $EXIT_PROG
     fi
 }
@@ -86,8 +86,8 @@ unlockUserAccount() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        # usermod -U $userName
-        printf "\t\t%s\n\n" "Done and Done!!"
+        usermod -U $userName
+        # printf "\t\t%s\n\n" "Done and Done!!"
         exit $EXIT_PROG
     fi
 }
@@ -107,8 +107,8 @@ removeUserFromSudoGroup() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        # gpasswd -d $userName "sudo"
-        printf "\t\t%s\n\n" "Done and Done!!"
+        gpasswd -d $userName "sudo"
+        # printf "\t\t%s\n\n" "Done and Done!!"
         exit $EXIT_PROG
     fi
 }
