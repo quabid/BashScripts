@@ -38,14 +38,17 @@ exitProg() {
 synopsis() {
     printf "\n\t%s\n" "$(color -w "${PROG^^}")"
     printf "\n%s\n" "$(color -w "$DESC")"
-    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aAlLru?>")" " $(white "<username>")"
-    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" "$(color -o "Parameters: ")" "$(color -w "?:\tPrints this message")" \
+    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aAlLRru?>")" " $(white "<username>")"
+    printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "$(color -o "Parameters: ")" \
+        "$(color -w "?:\tPrints this message")" \
         "$(color -w "a:\tAdd user to the sudo group")" \
         "$(color -w "A:\tAdd user to the group - Synopsis: ${0} -A <user-name> <group-name>")" \
         "$(color -w "l:\tLock user acount")" \
         "$(color -w "L:\tList user's groups")" \
         "$(color -w "r:\tRemove user from the sudo group")" \
-        "$(color -w "u:\tUnlock user accunt")"
+        "$(color -w "R:\tRemove user from group")" \
+        "$(color -w "u:\tUnlock user account")"
 }
 
 addUserToGroup() {
@@ -113,9 +116,20 @@ removeUserFromSudoGroup() {
     fi
 }
 
+removeUserFromGroup() {
+    if [ $UID -ne "$ROOT_UID" ]; then
+        printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
+        exit $NON_ROOT
+    else
+        gpasswd -d "$userName" "$groupName"
+        # printf "\t\t%s\n\n" "Done and Done!!"
+        exit $EXIT_PROG
+    fi
+}
+
 trap "gracefulExit" INT TERM QUIT PWR
 
-while getopts ':?l:u:a:L:r:A:' OPTION; do
+while getopts ':?l:u:a:L:r:A:R:' OPTION; do
     case ${OPTION} in
     a)
         # Add user to sudo group
@@ -134,6 +148,7 @@ while getopts ':?l:u:a:L:r:A:' OPTION; do
         fi
 
         ;;
+
     A)
         # Add user to existing group
 
@@ -205,6 +220,27 @@ while getopts ':?l:u:a:L:r:A:' OPTION; do
         else
             printf "\nMust enter a valid username \n\n"
             exit $EXIT_UNKNOWN_USER
+        fi
+
+        ;;
+
+    R)
+        # Remove user from existing group
+
+        if [ $# -eq 3 ]; then
+            userName="$(cat </etc/passwd | awk -F : '{print $1}' | grep -E "\b($2)\b")"
+            groupName="$(cat </etc/group | awk -F : '{print $1}' | grep -E "\b($3)\b")"
+            if [ -n "$userName" ]; then
+                if [ -n "$groupName" ]; then
+                    removeUserFromGroup "$userName" "$groupName"
+                else
+                    printf "\n\t%s\n\n" "$(color -o "Group ${3^^} does not exist!")"
+                    exit $EXIT_UNKNOWN_GROUP
+                fi
+            else
+                printf "\n\t%s\n\n" "$(color -o "Username ${2^^} does not exist!")"
+                exit $EXIT_UNKNOWN_USER
+            fi
         fi
 
         ;;
