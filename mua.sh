@@ -56,7 +56,7 @@ addUserToGroup() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        usermod -aG "$userName" "$groupName"
+        usermod -aG "$groupName" "$userName"
         # printf "\n\t%s\n\n" "$(color -P "Done and Done!!")"
         exit $EXIT_PROG
     fi
@@ -67,7 +67,7 @@ addUserToSudo() {
         printf "\n\t%s\n\n" "$(color -x 179 "$(blink.sh "Must run this script with root privilege")")"
         exit $NON_ROOT
     else
-        usermod -aG "$userName" sudo
+        usermod -aG "sudo" "$userName"
         # printf "\t\t%s\n\n" "Done and Done!!"
         exit $EXIT_PROG
     fi
