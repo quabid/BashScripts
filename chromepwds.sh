@@ -47,7 +47,7 @@ while getopts ':?lc:o:' OPTION; do
     l)
         # list all CSV files in the $SRC directory
         printf "\nThe CSV files live at: %s $SRC\n"
-        ls "$SRC" | grep ".csv$"
+        ls -sh "$HOME/Documents/information/chromepasswords/"
         cleanExit
         ;;
 
