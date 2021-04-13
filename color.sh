@@ -48,7 +48,7 @@ printRangeHorizontally() {
 
 synopsis() {
     echo -e "\e[38;5;209m\n\t\tColor Usage Detail\e[m"
-    printf "%s\n\t  %s\n\t  %s\n\t  %s\n" "$(color -w "Synopsis: color <BbcgmoPprwy> <Quoted Text>")" \
+    printf "%s\n\t  %s\n\t  %s\n\t  %s\n" "$(color -w "Synopsis: ${0} <BbcgmoPprwy> <Quoted Text>")" \
         "$(color -w "color -d")" \
         "$(color -w "color -H")" \
         "$(color -w "color -x <1-255> <Quoted Text>")"
