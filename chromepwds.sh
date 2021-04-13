@@ -9,7 +9,6 @@ clearVars() {
 cleanUp() {
     msg="all cleaned up!!"
     magenta "\t\t${msg^^}\n\n"
-
 }
 
 gracefulExit() {
