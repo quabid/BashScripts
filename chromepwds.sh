@@ -29,14 +29,18 @@ exitProg() {
 
 synopsis() {
     clear
-    printf "Program file: %s\n\n%s's home: %s\n\n" "chromepwds" "chromepwds" "$HOME/bin"
-    printf "Synopsis: chromepwds <[ option ]>\n\n"
-    printf "Options:\n\t? = Display this manual\n\tl = List the CSV files location\n\tc = Search the given CSV file for given term\n\to = Search the latest CSV file for given term\n\n"
-    printf "Examples:\n"
-    printf "\tchromepwds -?\n\n"
-    printf "\tchromepwds -l\n\n"
-    printf "\tchromepwds -c <[ 0-N _ ]> google\n\n"
-    printf "\tchromepwds -o google\n\n"
+    printf "%s\n" "$(color -x 179 "${0}'s home: $HOME/bin")"
+    printf "%s\n\t%s\n\t%s\n\t%s\n\n" \
+        "$(color -x 167 "Synopsis:")" \
+        "$(color -w "${0} <c> <0-N> <search-term>")" \
+        "$(color -w "${0} <o> <search-term>")" \
+        "$(color -w "${0} <?l>")"
+
+    printf "%s\n" "$(color -x 167 "Examples:")"
+    printf "\t%s\n" "$(color -w "${0} -?\tPrints this help")"
+    printf "\t%s\n" "$(color -w "${0} -l\tPrints home directory of the source files and lists them")"
+    printf "\t%s\n" "$(color -w "${0} -c <0-N> google")"
+    printf "\t%s\n" "$(color -w "${0} -o google")"
 }
 
 trap "gracefulExit" INT TERM QUIT PWR
@@ -101,7 +105,7 @@ while getopts ':?lc:o:' OPTION; do
         ;;
     esac
 done
-shift "(($OPTIND - 1))"
+shift "$(($OPTIND - 1))"
 
 if [ $# -gt 0 ]; then
     unset "$@"
