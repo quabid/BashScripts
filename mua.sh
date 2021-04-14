@@ -38,7 +38,7 @@ exitProg() {
 synopsis() {
     printf "\n\t%s\n" "$(color -w "${PROG^^}")"
     printf "\n%s\n" "$(color -w "$DESC")"
-    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(white "${0}")" " $(white "<-aAlLRru?>")" " $(white "<username>")"
+    printf "\n%s%s%s%s" "$(color -o "Synopsis: ")" "$(color -w "${0}")" " $(color -w "<-aAlLRru?>")" " $(color -w "<username>")"
     printf "\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "$(color -o "Parameters: ")" \
         "$(color -w "?:\tPrints this message")" \
