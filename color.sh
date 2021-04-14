@@ -8,7 +8,7 @@ gracefulExit() {
 }
 
 usage() {
-    printf "%s\n" "$(color -w "Usage: color <option> <Quoted Text>")"
+    printf "%s\n" "$(color -w "Usage: ${0} <option> <Quoted Text>")"
     # For using one of the 256 colors on the foreground (text color), the control sequence is “<Esc>[38;5;ColorNumberm”
     #  where ColorNumber is one of the following colors:
     # For using one of the 256 colors on the background, the control sequence is “<Esc>[48;5;ColorNumberm”
@@ -49,9 +49,9 @@ printRangeHorizontally() {
 synopsis() {
     printf "\e[38;5;209m\n\t\tColor Usage Detail\e[m"
     printf "\n%s\n\t  %s\n\t  %s\n\t  %s\n" "$(color -w "Synopsis: ${0} <BbcgmoPprwy> <Quoted Text>")" \
-        "$(color -w "color -d")" \
-        "$(color -w "color -H")" \
-        "$(color -w "color -x <1-255> <Quoted Text>")"
+        "$(color -w "${0} -d")" \
+        "$(color -w "${0} -H")" \
+        "$(color -w "${0} -x <1-255> <Quoted Text>")"
     printf "%s\n" "$(color -w "By default, the color intensity is configured high")"
     printf "%s\n" "$(color -x 178 "Parameters:")"
     printf "\t%s\n" "$(color -b "b:\tBlue")"
@@ -65,7 +65,7 @@ synopsis() {
     printf "\t%s\n" "$(color -r "r:\tRed")"
     printf "\t%s\n" "$(color -w "w:\tWhite")"
     printf "\t%s\n" "$(color -y "y:\tYellow")"
-    printf "\t%s\n" "$(color -w "x:\tcolor -x N = (Color range 1 to 255) <Quoted Text>")"
+    printf "\t%s\n" "$(color -w "x:\t${0} -x N = (Color range 1 to 255) <Quoted Text>")"
     printf "\t%s\n" "$(color -w "d:\tPrints sentences colored in the full range")"
     printf "\t%s\n" "$(color -w "H:\tHorizontally prints sentences colored in the full range")"
     printf "\n"
