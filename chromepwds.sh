@@ -3,17 +3,11 @@ declare -r SRC="$HOME/Documents/information/chromepasswords/"
 declare -r SRC_DEFAULT="$HOME/Documents/information/chromepasswords/ChromePasswords_.csv"
 
 clearVars() {
-    unset ARG ARGS res
-}
-
-cleanUp() {
-    msg="all cleaned up!!"
-    magenta "\t\t${msg^^}\n\n"
+    unset ARG ARGS res count
 }
 
 gracefulExit() {
     clearVars
-    cleanUp
     exit 0
 }
 
