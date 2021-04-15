@@ -3,7 +3,7 @@ declare -r SRC="$HOME/Documents/information/chromepasswords/"
 declare -r SRC_DEFAULT="$HOME/Documents/information/chromepasswords/ChromePasswords_.csv"
 
 clearVars() {
-    unset count res SRC SRC_DEFAULT TERM FILE_NAME FILE_PATH
+    unset count res TERM FILE_NAME FILE_PATH
 }
 
 gracefulExit() {
