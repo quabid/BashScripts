@@ -37,6 +37,7 @@ synopsis() {
     printf "\t%s\n" "$(color -w "${0} -l\tPrints home directory of the source files and lists them")"
     printf "\t%s\n" "$(color -w "${0} -c <1-$count> google")"
     printf "\t%s\n" "$(color -w "${0} -o google")"
+    cleanExit
 }
 
 trap "gracefulExit" INT TERM QUIT PWR
@@ -83,6 +84,7 @@ while getopts ':?lc:o:' OPTION; do
             if [[ -n "$res" ]]; then
                 printf '\tSearch Term: %s\n' "${TERM^^}"
                 printf '%s\n' "${res}"
+                exitProg
             else
                 exitProg
             fi
