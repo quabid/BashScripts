@@ -29,17 +29,19 @@ exitProg() {
 
 synopsis() {
     clear
+    local count
+    count="$(find ~/Documents/information/chromepasswords/ -type f -iname "*.csv" | sed -n "$=")"
     printf "%s\n" "$(color -x 179 "${0}'s home: $HOME/bin")"
     printf "%s\n\t%s\n\t%s\n\t%s\n\n" \
         "$(color -x 167 "Synopsis:")" \
-        "$(color -w "${0} <c> <0-N> <search-term>")" \
+        "$(color -w "${0} <c> <1-$count> <search-term>")" \
         "$(color -w "${0} <o> <search-term>")" \
         "$(color -w "${0} <?l>")"
 
     printf "%s\n" "$(color -x 167 "Examples:")"
     printf "\t%s\n" "$(color -w "${0} -?\tPrints this help")"
     printf "\t%s\n" "$(color -w "${0} -l\tPrints home directory of the source files and lists them")"
-    printf "\t%s\n" "$(color -w "${0} -c <0-N> google")"
+    printf "\t%s\n" "$(color -w "${0} -c <1-$count> google")"
     printf "\t%s\n" "$(color -w "${0} -o google")"
 }
 
