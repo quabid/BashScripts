@@ -7,9 +7,6 @@
         - Listing user's group(s)
         - Locking user account
         - Unlocking user account
-
-    Uncomment lines 56, 66, 76, 86 and 105
-    Comment or delete lines 57, 67, 77, 87 and 106
 COMMENT
 declare -r EXIT_PROG=0
 declare -r ROOT_UID=0
