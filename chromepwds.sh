@@ -25,7 +25,7 @@ synopsis() {
     clear
     local count
     count="$(find ~/Documents/information/chromepasswords/ -type f -iname "*.csv" | sed -n "$=")"
-    printf "%s\n\n" "$(color -x 179 "${0}'s home: $HOME/bin")"
+    printf "\n%s%s\n\n" "$(color -x 179 "${0}")" "$(color -w " lives at $HOME/bin")"
     printf "%s\n\t%s\n\t%s\n\t%s\n\n" \
         "$(color -x 167 "Synopsis:")" \
         "$(color -w "${0} <c> <1-$count> <search-term>")" \
